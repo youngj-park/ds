@@ -72,6 +72,7 @@ export const TEAM_MEMBERS = [
     role: "CEO",
     bio: "KAIST 데이터사이언스 박사. 현 한성대학교 CS 교수. 전 ETRI 선임연구원, 전 삼성전자 책임연구원. AI 기반 반도체 검사 시스템의 상용화를 이끌고 있습니다.",
     initial: "한",
+    image: "/team/ceo.png",
   },
   {
     id: 2,
@@ -79,6 +80,7 @@ export const TEAM_MEMBERS = [
     role: "CTO",
     bio: "KAIST 데이터사이언스 박사. 현 한성대학교 특임교수. AI 대형국책과제 경험 다수 보유. DEEPSEERS 핵심 비전 AI 알고리즘 개발을 총괄합니다.",
     initial: "김",
+    image: "/team/cto.png",
   },
   {
     id: 3,
@@ -86,6 +88,7 @@ export const TEAM_MEMBERS = [
     role: "COO",
     bio: "KAIST 데이터사이언스 박사. 전 씨젠 AI 연구팀장. 3D 머신비전 상용화 경험 다수 보유. 기업 운영 전반과 기술 사업화를 책임집니다.",
     initial: "박",
+    image: "/team/coo.png",
   },
 ] as const;
 
@@ -214,7 +217,6 @@ export const MARKET_STATS = [
 export const NAV_LINKS = [
   { label: "회사 소개", href: "#about" },
   { label: "솔루션", href: "#services" },
-  { label: "적용 공정", href: "#processes" },
   { label: "팀", href: "#team" },
   { label: "IR & News", href: "#news" },
   { label: "문의하기", href: "#contact" },
@@ -227,7 +229,7 @@ export const COMPANY_INFO = {
   ceo: "한기준",
   addressHQ: "인천시 연수구 컨벤시아대로 204, 214호 (송도동, 인스타 II)",
   addressLab: "서울시 마포구 공덕동 마포대로 122 프론트원 14F",
-  email: "keejun.han@deepseers.com",
+  email: "dsadmin@deepseers.com",
   bizRegNo: "123-45-67890",
   linkedin: "https://linkedin.com/company/deepseers",
   github: "https://github.com/deepseers",

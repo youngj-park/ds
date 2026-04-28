@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import { FlaskConical, Cpu, Building2 } from "lucide-react";
 import { TEAM_MEMBERS, TEAM_STRUCTURE } from "@/lib/constants";
 
-const AVATAR_COLORS = ["bg-blue-600", "bg-indigo-600", "bg-violet-600"] as const;
 const STRUCT_ICONS = { FlaskConical, Cpu, Building2 } as const;
 
 export default function Team() {
@@ -34,10 +33,19 @@ export default function Team() {
     <section
       id="team"
       ref={sectionRef}
-      className="py-24 lg:py-32 bg-surface-secondary circuit-bg"
+      className="py-24 lg:py-32 relative overflow-hidden"
       aria-labelledby="team-heading"
+      style={{
+        backgroundImage: "url('/background.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-white/88" aria-hidden="true" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14">
           <div className="flex items-center justify-center gap-3 mb-4 reveal section-hidden">
@@ -60,17 +68,18 @@ export default function Team() {
 
         {/* Executive cards */}
         <div className="grid sm:grid-cols-3 gap-8 mb-14">
-          {TEAM_MEMBERS.map((member, i) => (
+          {TEAM_MEMBERS.map((member) => (
             <article
               key={member.id}
               className="reveal section-hidden bg-white rounded-2xl p-8 border border-surface-border shadow-sm hover:shadow-lg transition-shadow duration-300 text-center"
             >
               <div className="flex justify-center mb-5">
-                <div
-                  className={`w-20 h-20 rounded-full ${AVATAR_COLORS[i % AVATAR_COLORS.length]} flex items-center justify-center text-white text-2xl font-bold shadow-lg`}
-                  aria-label={`${member.name} 프로필 이미지`}
-                >
-                  {member.initial}
+                <div className="w-24 h-24 rounded-full overflow-hidden shadow-lg border-2 border-accent/20">
+                  <img
+                    src={member.image}
+                    alt={`${member.name} 프로필`}
+                    className="w-full h-full object-cover object-top"
+                  />
                 </div>
               </div>
               <h3 className="text-lg font-bold text-text-primary mb-1">

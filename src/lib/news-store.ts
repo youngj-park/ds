@@ -9,44 +9,28 @@ export type NewsItem = {
   isCustom: boolean;
 };
 
-const STORAGE_KEY = "ds_news_items";
-
-export function getStoredNews(): NewsItem[] {
-  if (typeof window === "undefined") return [];
+export async function getStoredNews(): Promise<NewsItem[]> {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as NewsItem[]) : [];
+    const res = await fetch("/api/news", { cache: "no-store" });
+    return res.ok ? ((await res.json()) as NewsItem[]) : [];
   } catch {
     return [];
   }
 }
 
-export function saveNewsItem(
+export async function saveNewsItem(
   data: Omit<NewsItem, "id" | "isCustom">
-): NewsItem {
-  const items = getStoredNews();
-  const item: NewsItem = {
-    ...data,
-    id: `custom_${Date.now()}`,
-    isCustom: true,
-  };
-  localStorage.setItem(STORAGE_KEY, JSON.stringify([item, ...items]));
-  return item;
+): Promise<NewsItem> {
+  const res = await fetch("/api/news", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return res.json() as Promise<NewsItem>;
 }
 
-export function updateNewsItem(
-  id: string,
-  data: Partial<Omit<NewsItem, "id" | "isCustom">>
-): void {
-  const items = getStoredNews().map((item) =>
-    item.id === id ? { ...item, ...data } : item
-  );
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-}
-
-export function deleteNewsItem(id: string): void {
-  const items = getStoredNews().filter((item) => item.id !== id);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+export async function deleteNewsItem(id: string): Promise<void> {
+  await fetch(`/api/news/${id}`, { method: "DELETE" });
 }
 
 export async function compressImage(file: File): Promise<string> {

@@ -32,15 +32,16 @@ export default function IRNews() {
   const [allNews, setAllNews] = useState<NewsItem[]>([]);
 
   useEffect(() => {
-    const stored = getStoredNews();
-    const staticItems: NewsItem[] = NEWS_ITEMS.map((n) => ({
-      ...n,
-      isCustom: false,
-    }));
-    const merged = [...stored, ...staticItems].sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
-    setAllNews(merged.slice(0, 4));
+    getStoredNews().then((stored) => {
+      const staticItems: NewsItem[] = NEWS_ITEMS.map((n) => ({
+        ...n,
+        isCustom: false,
+      }));
+      const merged = [...stored, ...staticItems].sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+      setAllNews(merged.slice(0, 4));
+    });
   }, []);
 
   useEffect(() => {

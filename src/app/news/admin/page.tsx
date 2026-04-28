@@ -136,10 +136,10 @@ function NewsForm({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title.trim() || !form.summary.trim() || !form.content.trim()) return;
-    const saved = saveNewsItem(form);
+    const saved = await saveNewsItem(form);
     onSave(saved);
   };
 
@@ -380,7 +380,7 @@ export default function AdminPage() {
 
   // Load news
   useEffect(() => {
-    if (authed) setNews(getStoredNews());
+    if (authed) getStoredNews().then(setNews);
   }, [authed]);
 
   const handleSave = (item: NewsItem) => {
@@ -388,9 +388,9 @@ export default function AdminPage() {
     setWriting(false);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (!confirm("이 뉴스를 삭제하시겠습니까?")) return;
-    deleteNewsItem(id);
+    await deleteNewsItem(id);
     setNews((prev) => prev.filter((n) => n.id !== id));
   };
 

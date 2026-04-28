@@ -16,18 +16,19 @@ export default function NewsDetailPage() {
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    const stored = getStoredNews();
-    const staticItems: NewsItem[] = NEWS_ITEMS.map((n) => ({
-      ...n,
-      isCustom: false,
-    }));
-    const all = [...stored, ...staticItems];
-    const found = all.find((n) => n.id === id);
-    if (found) {
-      setItem(found);
-    } else {
-      setNotFound(true);
-    }
+    getStoredNews().then((stored) => {
+      const staticItems: NewsItem[] = NEWS_ITEMS.map((n) => ({
+        ...n,
+        isCustom: false,
+      }));
+      const all = [...stored, ...staticItems];
+      const found = all.find((n) => n.id === id);
+      if (found) {
+        setItem(found);
+      } else {
+        setNotFound(true);
+      }
+    });
   }, [id]);
 
   if (notFound) {
@@ -71,7 +72,6 @@ export default function NewsDetailPage() {
     <>
       <Header />
       <main className="min-h-screen bg-surface-secondary pt-24 pb-20">
-        {/* Dark header strip */}
         <div className="bg-navy-900 pt-10 pb-16">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <button
@@ -93,16 +93,12 @@ export default function NewsDetailPage() {
               {item.title}
             </h1>
 
-            <time
-              dateTime={item.date}
-              className="text-slate-400 text-sm"
-            >
+            <time dateTime={item.date} className="text-slate-400 text-sm">
               {formatDate(item.date)}
             </time>
           </div>
         </div>
 
-        {/* Article body */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6">
           <div className="bg-white rounded-2xl shadow-sm border border-surface-border overflow-hidden">
             {item.imageUrl && (
@@ -116,18 +112,13 @@ export default function NewsDetailPage() {
             )}
 
             <div className="p-8 sm:p-10">
-              {/* Summary lead */}
               <p className="text-lg text-text-secondary leading-relaxed border-l-4 border-accent pl-4 mb-8 font-medium">
                 {item.summary}
               </p>
 
-              {/* Full content */}
               <div className="prose prose-slate max-w-none">
                 {item.content.split("\n\n").map((para, i) => (
-                  <p
-                    key={i}
-                    className="text-text-primary leading-relaxed mb-5 last:mb-0"
-                  >
+                  <p key={i} className="text-text-primary leading-relaxed mb-5 last:mb-0">
                     {para}
                   </p>
                 ))}

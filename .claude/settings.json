@@ -1,7 +1,15 @@
 {
   "permissions": {
     "allow": [
-      "Read(//c/temp/**)"
+      "Read(//c/temp/**)",
+      "Read(//c/Users/user/Dropbox/패밀리룸/Deepseers//**)",
+      "Read(//c/Users/user/**)",
+      "Read(//c/Users/user/Dropbox/패밀리룸/Deepseers/**)",
+      "Bash(mkdir -p public/team)",
+      "Bash(cp iamges/CEO.png public/team/ceo.png)",
+      "Bash(cp iamges/CTO.png public/team/cto.png)",
+      "Bash(cp iamges/COO.png public/team/coo.png)",
+      "Bash(cp iamges/배경.png public/background.png)"
     ]
   }
 }

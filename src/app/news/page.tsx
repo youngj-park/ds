@@ -17,15 +17,16 @@ export default function NewsPage() {
   const [filter, setFilter] = useState("전체");
 
   useEffect(() => {
-    const stored = getStoredNews();
-    const staticItems: NewsItem[] = NEWS_ITEMS.map((n) => ({
-      ...n,
-      isCustom: false,
-    }));
-    const merged = [...stored, ...staticItems].sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
-    setNews(merged);
+    getStoredNews().then((stored) => {
+      const staticItems: NewsItem[] = NEWS_ITEMS.map((n) => ({
+        ...n,
+        isCustom: false,
+      }));
+      const merged = [...stored, ...staticItems].sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+      setNews(merged);
+    });
   }, []);
 
   const filtered =
