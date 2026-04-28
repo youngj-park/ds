@@ -107,6 +107,13 @@ export default function Footer() {
             <a href="#" className="hover:text-slate-300 transition-colors">
               이용약관
             </a>
+            <a
+              href="/dashboard"
+              className="opacity-20 hover:opacity-100 transition-opacity"
+              aria-label="내부 대시보드"
+            >
+              대시보드
+            </a>
           </div>
         </div>
       </div>

@@ -90,7 +90,7 @@ export const TEAM_MEMBERS = [
     role: "COO / 연구소장",
     bio: "KAIST 데이터사이언스 박사. 전 씨젠 AI 연구팀장. 3D 머신비전 상용화 경험 다수 보유. 기업 운영 전반과 기술 사업화를 책임집니다.",
     initial: "박",
-    image: "/team/coo.jpg",
+    image: "/team/coo.png",
     imageStyle: { objectPosition: "center 35%", transform: "scale(0.82)", transformOrigin: "center bottom" },
   },
 ] as const;
