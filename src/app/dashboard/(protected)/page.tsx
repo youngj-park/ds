@@ -93,9 +93,6 @@ export default async function DashboardPage() {
   const token = cookieStore.get(SESSION_COOKIE)?.value;
   const session = await decrypt(token);
 
-  const activeCount = EQUIPMENT.filter((e) => e.status === "가동").length;
-  const dailyTotal = EQUIPMENT.reduce((s, e) => s + (e.dailyInspections ?? 0), 0);
-
   const today = new Date().toLocaleDateString("ko-KR", {
     year: "numeric", month: "long", day: "numeric", weekday: "long",
   });
@@ -120,13 +117,6 @@ export default async function DashboardPage() {
         <KpiCard label="올해 수주 건수" value="12건" sub="전년 比 +8건" accent="text-amber-400" large />
       </div>
 
-      {/* 장비 운영 지표 */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <KpiCard label="가동 장비" value={`${activeCount} / ${EQUIPMENT.length}`} sub="대 운영 중" accent="text-emerald-400" />
-        <KpiCard label="금일 검사 건수" value={dailyTotal.toLocaleString()} sub="건" accent="text-blue-400" />
-        <KpiCard label="불량 검출 정확도" value="99.3%" sub="목표 99.0% 초과" accent="text-blue-400" />
-        <KpiCard label="이번 달 매출" value="₩1.2억" sub="목표 달성률 80%" accent="text-slate-400" />
-      </div>
 
       {/* Equipment table */}
       <div className="bg-slate-900 rounded-xl border border-slate-800 mb-8 overflow-hidden">
