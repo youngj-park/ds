@@ -85,10 +85,10 @@ export const TEAM_MEMBERS = [
   {
     id: 3,
     name: "박영진",
-    role: "COO",
+    role: "COO / 연구소장",
     bio: "KAIST 데이터사이언스 박사. 전 씨젠 AI 연구팀장. 3D 머신비전 상용화 경험 다수 보유. 기업 운영 전반과 기술 사업화를 책임집니다.",
     initial: "박",
-    image: "/team/coo.png",
+    image: "/team/coo.jpg",
   },
 ] as const;
 

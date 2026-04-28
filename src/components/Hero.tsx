@@ -43,7 +43,7 @@ export default function Hero() {
           <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-6 max-w-4xl">
             사람의 개입을 최소화하는,
             <br />
-            <span className="text-[#3b82f6]">AI 기반 반도체 패키지</span>
+            <span className="text-orange-400">AI 기반 반도체 패키지</span>
             <br />
             불량검출 토탈 시스템
           </h1>
