@@ -44,26 +44,6 @@ const EQUIPMENT = [
   },
 ];
 
-const COMPANY_METRICS = [
-  { label: "이번 달 매출",    value: "₩1.2억",  sub: "전월 比 +18%" },
-  { label: "수주 잔고",       value: "₩4.8억",  sub: "3건 진행 중" },
-  { label: "현재 고객사",     value: "8개사",    sub: "이번 달 2개 신규" },
-  { label: "누적 검사 건수",  value: "1.2M",    sub: "금일 12,847건" },
-];
-
-const TEAM = [
-  { name: "한기준",  role: "CEO",            dept: "경영" },
-  { name: "김무진",  role: "CTO",            dept: "기술" },
-  { name: "박영진",  role: "COO / 연구소장", dept: "운영" },
-  { name: "이하은",  role: "선임 연구원",    dept: "연구소" },
-  { name: "김진우",  role: "소프트웨어 개발자", dept: "개발" },
-];
-
-const NOTICES = [
-  { date: "2026-04-28", content: "DS-3D-001 정기 점검 — 4/29 ~ 4/30 (2일간)" },
-  { date: "2026-04-25", content: "시리즈 A 투자 서류 검토 완료, 5월 중 클로징 예정" },
-  { date: "2026-04-20", content: "고객사 C 파일럿 프로젝트 계약 체결" },
-];
 
 function StatusBadge({ status }: { status: string }) {
   const map: Record<string, string> = {
@@ -162,60 +142,6 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Bottom grid: company metrics + team + notices */}
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Company metrics */}
-        <div className="bg-slate-900 rounded-xl border border-slate-800">
-          <div className="px-5 py-4 border-b border-slate-800">
-            <h2 className="text-sm font-semibold text-white">회사 현황</h2>
-          </div>
-          <div className="grid grid-cols-2 gap-3 p-5">
-            {COMPANY_METRICS.map((m) => (
-              <div key={m.label} className="bg-slate-800/60 rounded-lg p-3.5">
-                <p className="text-xs text-slate-500 mb-1">{m.label}</p>
-                <p className="text-lg font-bold text-white">{m.value}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{m.sub}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Team */}
-        <div className="bg-slate-900 rounded-xl border border-slate-800">
-          <div className="px-5 py-4 border-b border-slate-800">
-            <h2 className="text-sm font-semibold text-white">팀 현황</h2>
-          </div>
-          <ul className="divide-y divide-slate-800/60">
-            {TEAM.map((member) => (
-              <li key={member.name} className="flex items-center gap-3 px-5 py-3">
-                <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs text-white font-semibold shrink-0">
-                  {member.name[0]}
-                </div>
-                <div className="min-w-0">
-                  <p className="text-sm text-white leading-tight">{member.name}</p>
-                  <p className="text-xs text-slate-500 truncate">{member.role}</p>
-                </div>
-                <span className="ml-auto text-xs text-slate-600 shrink-0">{member.dept}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Notices */}
-        <div className="bg-slate-900 rounded-xl border border-slate-800">
-          <div className="px-5 py-4 border-b border-slate-800">
-            <h2 className="text-sm font-semibold text-white">공지사항</h2>
-          </div>
-          <ul className="divide-y divide-slate-800/60">
-            {NOTICES.map((n, i) => (
-              <li key={i} className="px-5 py-3.5">
-                <p className="text-xs text-slate-500 mb-1">{n.date}</p>
-                <p className="text-sm text-slate-300 leading-snug">{n.content}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
     </div>
   );
 }
