@@ -78,11 +78,11 @@ function StatusBadge({ status }: { status: string }) {
   );
 }
 
-function KpiCard({ label, value, sub, accent }: { label: string; value: string; sub: string; accent: string }) {
+function KpiCard({ label, value, sub, accent, large }: { label: string; value: string; sub: string; accent: string; large?: boolean }) {
   return (
-    <div className="bg-slate-900 rounded-xl border border-slate-800 p-5">
+    <div className={`bg-slate-900 rounded-xl border border-slate-800 ${large ? "p-6" : "p-5"}`}>
       <p className="text-xs text-slate-500 mb-2">{label}</p>
-      <p className={`text-2xl font-bold ${accent}`}>{value}</p>
+      <p className={`font-bold ${accent} ${large ? "text-3xl" : "text-2xl"}`}>{value}</p>
       <p className="text-xs text-slate-500 mt-1">{sub}</p>
     </div>
   );
@@ -113,12 +113,19 @@ export default async function DashboardPage() {
         </p>
       </div>
 
-      {/* KPI row */}
+      {/* KPI row — 핵심 경영 지표 */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+        <KpiCard label="현재 수주 잔고" value="₩4.8억" sub="3건 진행 중" accent="text-emerald-400" large />
+        <KpiCard label="올해 매출 (누계)" value="₩7.2억" sub="전년 比 +112%" accent="text-blue-400" large />
+        <KpiCard label="올해 수주 건수" value="12건" sub="전년 比 +8건" accent="text-amber-400" large />
+      </div>
+
+      {/* 장비 운영 지표 */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <KpiCard label="가동 장비" value={`${activeCount} / ${EQUIPMENT.length}`} sub="대 운영 중" accent="text-emerald-400" />
         <KpiCard label="금일 검사 건수" value={dailyTotal.toLocaleString()} sub="건" accent="text-blue-400" />
         <KpiCard label="불량 검출 정확도" value="99.3%" sub="목표 99.0% 초과" accent="text-blue-400" />
-        <KpiCard label="이번 달 매출" value="₩1.2억" sub="목표 달성률 80%" accent="text-amber-400" />
+        <KpiCard label="이번 달 매출" value="₩1.2억" sub="목표 달성률 80%" accent="text-slate-400" />
       </div>
 
       {/* Equipment table */}
