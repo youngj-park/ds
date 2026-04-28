@@ -73,6 +73,7 @@ export const TEAM_MEMBERS = [
     bio: "KAIST 데이터사이언스 박사. 현 한성대학교 CS 교수. 전 ETRI 선임연구원, 전 삼성전자 책임연구원. AI 기반 반도체 검사 시스템의 상용화를 이끌고 있습니다.",
     initial: "한",
     image: "/team/ceo.png",
+    imageStyle: { objectPosition: "center top" },
   },
   {
     id: 2,
@@ -81,6 +82,7 @@ export const TEAM_MEMBERS = [
     bio: "KAIST 데이터사이언스 박사. 현 한성대학교 특임교수. AI 대형국책과제 경험 다수 보유. DEEPSEERS 핵심 비전 AI 알고리즘 개발을 총괄합니다.",
     initial: "김",
     image: "/team/cto.png",
+    imageStyle: { objectPosition: "center top" },
   },
   {
     id: 3,
@@ -89,6 +91,7 @@ export const TEAM_MEMBERS = [
     bio: "KAIST 데이터사이언스 박사. 전 씨젠 AI 연구팀장. 3D 머신비전 상용화 경험 다수 보유. 기업 운영 전반과 기술 사업화를 책임집니다.",
     initial: "박",
     image: "/team/coo.jpg",
+    imageStyle: { objectPosition: "center 15%", transform: "scale(0.85)", transformOrigin: "center top" },
   },
 ] as const;
 

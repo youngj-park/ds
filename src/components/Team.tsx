@@ -78,7 +78,8 @@ export default function Team() {
                   <img
                     src={member.image}
                     alt={`${member.name} 프로필`}
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover"
+                    style={member.imageStyle}
                   />
                 </div>
               </div>
