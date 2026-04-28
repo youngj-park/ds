@@ -1,17 +1,22 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, TrendingUp, Handshake, Package, Award } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { NEWS_ITEMS } from "@/lib/constants";
+import { getStoredNews, type NewsItem } from "@/lib/news-store";
 
-const CATEGORY_STYLES: Record<string, { bg: string; text: string; icon: React.ElementType }> = {
+export const CATEGORY_STYLES: Record<
+  string,
+  { bg: string; text: string; icon: React.ElementType }
+> = {
   투자: { bg: "bg-emerald-50", text: "text-emerald-700", icon: TrendingUp },
   파트너십: { bg: "bg-blue-50", text: "text-blue-700", icon: Handshake },
   제품: { bg: "bg-violet-50", text: "text-violet-700", icon: Package },
   수상: { bg: "bg-amber-50", text: "text-amber-700", icon: Award },
 };
 
-function formatDate(dateStr: string) {
+export function formatDate(dateStr: string) {
   const d = new Date(dateStr);
   return d.toLocaleDateString("ko-KR", {
     year: "numeric",
@@ -22,6 +27,21 @@ function formatDate(dateStr: string) {
 
 export default function IRNews() {
   const sectionRef = useRef<HTMLElement>(null);
+  const router = useRouter();
+  const [allNews, setAllNews] = useState<NewsItem[]>([]);
+
+  // Merge static + stored, sort by date, show latest 4
+  useEffect(() => {
+    const stored = getStoredNews();
+    const staticItems: NewsItem[] = NEWS_ITEMS.map((n) => ({
+      ...n,
+      isCustom: false,
+    }));
+    const merged = [...stored, ...staticItems].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+    setAllNews(merged.slice(0, 4));
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -67,7 +87,10 @@ export default function IRNews() {
               최신 소식
             </h2>
           </div>
-          <button className="reveal section-hidden self-start sm:self-auto flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-hover transition-colors group">
+          <button
+            onClick={() => router.push("/news")}
+            className="reveal section-hidden self-start sm:self-auto flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-hover transition-colors group"
+          >
             더보기
             <ArrowRight
               size={16}
@@ -78,7 +101,7 @@ export default function IRNews() {
 
         {/* News cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {NEWS_ITEMS.map((item) => {
+          {allNews.map((item) => {
             const style = CATEGORY_STYLES[item.category] ?? {
               bg: "bg-slate-50",
               text: "text-slate-700",
@@ -88,16 +111,24 @@ export default function IRNews() {
             return (
               <article
                 key={item.id}
+                onClick={() => router.push(`/news/${item.id}`)}
                 className="reveal section-hidden group rounded-2xl border border-surface-border bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer"
               >
-                {/* Category strip */}
+                {item.imageUrl && (
+                  <div className="h-36 overflow-hidden">
+                    <img
+                      src={item.imageUrl}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                )}
                 <div className={`px-5 py-3 flex items-center gap-2 ${style.bg}`}>
                   <CatIcon size={13} className={style.text} />
                   <span className={`text-xs font-semibold ${style.text}`}>
                     {item.category}
                   </span>
                 </div>
-
                 <div className="p-5">
                   <time
                     dateTime={item.date}
