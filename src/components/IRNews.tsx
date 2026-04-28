@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, TrendingUp, Handshake, Package, Award } from "lucide-react";
+import { ArrowRight, TrendingUp, Handshake, Package, Award, Briefcase } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { NEWS_ITEMS } from "@/lib/constants";
 import { getStoredNews, type NewsItem } from "@/lib/news-store";
@@ -14,6 +14,7 @@ export const CATEGORY_STYLES: Record<
   파트너십: { bg: "bg-blue-50", text: "text-blue-700", icon: Handshake },
   제품: { bg: "bg-violet-50", text: "text-violet-700", icon: Package },
   수상: { bg: "bg-amber-50", text: "text-amber-700", icon: Award },
+  사업: { bg: "bg-sky-50", text: "text-sky-700", icon: Briefcase },
 };
 
 export function formatDate(dateStr: string) {
@@ -30,7 +31,6 @@ export default function IRNews() {
   const router = useRouter();
   const [allNews, setAllNews] = useState<NewsItem[]>([]);
 
-  // Merge static + stored, sort by date, show latest 4
   useEffect(() => {
     const stored = getStoredNews();
     const staticItems: NewsItem[] = NEWS_ITEMS.map((n) => ({
@@ -71,7 +71,6 @@ export default function IRNews() {
       aria-labelledby="news-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <div>
             <div className="flex items-center gap-3 mb-4 reveal section-hidden">
@@ -99,7 +98,6 @@ export default function IRNews() {
           </button>
         </div>
 
-        {/* News cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {allNews.map((item) => {
             const style = CATEGORY_STYLES[item.category] ?? {
@@ -130,10 +128,7 @@ export default function IRNews() {
                   </span>
                 </div>
                 <div className="p-5">
-                  <time
-                    dateTime={item.date}
-                    className="text-xs text-text-muted block mb-2"
-                  >
+                  <time dateTime={item.date} className="text-xs text-text-muted block mb-2">
                     {formatDate(item.date)}
                   </time>
                   <h3 className="text-sm font-bold text-text-primary leading-snug mb-3 group-hover:text-accent transition-colors line-clamp-2">

@@ -1,15 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { Eye, BarChart3, Cpu, ClipboardCheck } from "lucide-react";
+import { Camera, Layers3, BrainCircuit, Network } from "lucide-react";
 import { SERVICES } from "@/lib/constants";
 
-const ICON_MAP = {
-  Eye,
-  BarChart3,
-  Cpu,
-  ClipboardCheck,
-} as const;
+const ICON_MAP = { Camera, Layers3, BrainCircuit, Network } as const;
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -47,7 +42,7 @@ export default function Services() {
           <div className="flex items-center justify-center gap-3 mb-4 reveal section-hidden">
             <span className="w-8 h-px bg-accent" />
             <span className="text-accent text-sm font-semibold tracking-widest uppercase">
-              Services
+              Solutions
             </span>
             <span className="w-8 h-px bg-accent" />
           </div>
@@ -55,12 +50,11 @@ export default function Services() {
             id="services-heading"
             className="text-3xl sm:text-4xl font-bold text-text-primary mb-4 reveal section-hidden"
           >
-            반도체 품질을 혁신하는
-            <br />
-            디에스의 솔루션
+            DEEPSEERS 솔루션
           </h2>
           <p className="text-text-secondary text-lg max-w-xl mx-auto reveal section-hidden">
-            검사부터 분석, 현장 배포, 컨설팅까지 — 비전 AI의 전 과정을 지원합니다.
+            2D · 3D 검사부터 AI 자동화, 스마트팩토리까지 —<br className="hidden sm:block" />
+            반도체 후공정 품질 혁신의 전 과정을 지원합니다.
           </p>
         </div>
 
@@ -71,28 +65,31 @@ export default function Services() {
             return (
               <article
                 key={service.id}
-                className="reveal section-hidden group relative rounded-2xl border border-surface-border bg-white p-7 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1 transition-all duration-300 cursor-default"
+                className="reveal section-hidden group relative rounded-2xl border border-surface-border bg-white p-7 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/10 hover:-translate-y-1 transition-all duration-300"
               >
                 {/* Icon */}
-                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent group-hover:text-white transition-colors duration-300">
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent transition-colors duration-300">
                   <Icon
                     size={22}
                     className="text-accent group-hover:text-white transition-colors duration-300"
                   />
                 </div>
 
-                {/* Text */}
-                <h3 className="text-lg font-bold text-text-primary mb-1">
+                <h3 className="text-base font-bold text-text-primary mb-1">
                   {service.name}
                 </h3>
                 <p className="text-xs font-semibold text-accent mb-3">
                   {service.shortDesc}
                 </p>
-                <p className="text-sm text-text-secondary leading-relaxed">
+                <p className="text-sm text-text-secondary leading-relaxed mb-4">
                   {service.description}
                 </p>
 
-                {/* Hover accent line */}
+                {/* Spec badge */}
+                <p className="text-xs text-text-muted bg-surface-secondary rounded-lg px-3 py-2 leading-relaxed">
+                  {service.spec}
+                </p>
+
                 <div className="absolute bottom-0 left-7 right-7 h-0.5 bg-accent rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
               </article>
             );

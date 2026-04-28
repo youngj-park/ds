@@ -23,7 +23,7 @@ export default function Hero() {
         background="#1a2332"
         className="min-h-screen"
       >
-        {/* Gradient vignette — edges darker, center clear */}
+        {/* Vignette */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -33,26 +33,25 @@ export default function Hero() {
           aria-hidden="true"
         />
 
-        {/* Hero content */}
         <div className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 text-center">
-          {/* Eyebrow badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#3b82f6]/40 bg-[#3b82f6]/10 text-[#3b82f6] text-xs font-semibold tracking-widest uppercase mb-8">
+          {/* Brand badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#3b82f6]/40 bg-[#3b82f6]/10 text-[#3b82f6] text-xs font-bold tracking-widest uppercase mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
-            AI Vision Inspection Platform
+            DEEPSEERS · Advanced Semiconductor AI
           </div>
 
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-[4.5rem] font-bold text-white leading-[1.1] tracking-tight mb-6 max-w-4xl">
-            보이지 않는 결함까지,
+          {/* Main headline */}
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-6 max-w-4xl">
+            사람의 개입을 최소화하는,
             <br />
-            <span className="text-[#3b82f6]">AI가 봅니다</span>
+            <span className="text-[#3b82f6]">AI 기반 반도체 패키지</span>
+            <br />
+            불량검출 토탈 시스템
           </h1>
 
           {/* Sub copy */}
-          <p className="text-lg sm:text-xl text-slate-300 max-w-2xl leading-relaxed mb-10">
-            반도체 비전 검사의 새로운 기준을 디에스가 만듭니다.
-            <br className="hidden sm:block" />
-            정밀 AI로 공정 품질을 혁신하고, 수율을 높입니다.
+          <p className="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed mb-10">
+            어드밴스드 패키징을 위한 더 빠르고, 더 정확한 머신비전 솔루션
           </p>
 
           {/* CTA */}
@@ -61,7 +60,7 @@ export default function Hero() {
               onClick={() => scrollTo("#services")}
               className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold text-base transition-all duration-200 shadow-lg shadow-[#3b82f6]/30 hover:shadow-[#3b82f6]/50 hover:-translate-y-0.5"
             >
-              플랫폼 알아보기
+              솔루션 알아보기
             </button>
             <button
               onClick={() => scrollTo("#contact")}
@@ -73,7 +72,7 @@ export default function Hero() {
 
           {/* Scroll indicator */}
           <button
-            onClick={() => scrollTo("#about")}
+            onClick={() => scrollTo("#market")}
             className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-400 hover:text-white transition-colors animate-bounce"
             aria-label="아래로 스크롤"
           >

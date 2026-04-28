@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Mail, Phone, Send, CheckCircle2 } from "lucide-react";
+import { MapPin, Mail, Send, CheckCircle2 } from "lucide-react";
 import { COMPANY_INFO } from "@/lib/constants";
 
 type FormState = {
@@ -76,7 +76,6 @@ export default function Contact() {
       setErrors(errs);
       return;
     }
-    // 실제 폼 제출 로직은 추후 API 연결
     setSubmitted(true);
   };
 
@@ -94,7 +93,7 @@ export default function Contact() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16">
-          {/* Left — contact info */}
+          {/* Left */}
           <div>
             <div className="flex items-center gap-3 mb-4 reveal section-hidden">
               <span className="w-8 h-px bg-accent" />
@@ -114,18 +113,33 @@ export default function Contact() {
             </p>
 
             <div className="flex flex-col gap-6">
+              {/* HQ */}
               <div className="reveal section-hidden flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
                   <MapPin size={18} className="text-accent" />
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">
-                    주소
+                    본사
                   </p>
-                  <p className="text-slate-200 text-sm">{COMPANY_INFO.address}</p>
+                  <p className="text-slate-200 text-sm">{COMPANY_INFO.addressHQ}</p>
                 </div>
               </div>
 
+              {/* Lab */}
+              <div className="reveal section-hidden flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
+                  <MapPin size={18} className="text-accent" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">
+                    기업부설연구소
+                  </p>
+                  <p className="text-slate-200 text-sm">{COMPANY_INFO.addressLab}</p>
+                </div>
+              </div>
+
+              {/* Email */}
               <div className="reveal section-hidden flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center shrink-0">
                   <Mail size={18} className="text-accent" />
@@ -139,23 +153,6 @@ export default function Contact() {
                     className="text-slate-200 text-sm hover:text-accent transition-colors"
                   >
                     {COMPANY_INFO.email}
-                  </a>
-                </div>
-              </div>
-
-              <div className="reveal section-hidden flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center shrink-0">
-                  <Phone size={18} className="text-accent" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-slate-400 mb-1 uppercase tracking-wider">
-                    전화
-                  </p>
-                  <a
-                    href={`tel:${COMPANY_INFO.phone.replace(/-/g, "")}`}
-                    className="text-slate-200 text-sm hover:text-accent transition-colors"
-                  >
-                    {COMPANY_INFO.phone}
                   </a>
                 </div>
               </div>
@@ -183,92 +180,36 @@ export default function Contact() {
                 className="rounded-2xl bg-white/5 border border-white/10 p-8 flex flex-col gap-5"
                 aria-label="문의하기 폼"
               >
-                {/* Name */}
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-slate-300 mb-1.5"
-                  >
-                    이름 <span className="text-accent">*</span>
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    placeholder="홍길동"
-                    value={form.name}
-                    onChange={handleChange}
-                    className={errors.name ? inputError : inputNormal}
-                    aria-describedby={errors.name ? "name-error" : undefined}
-                    aria-invalid={!!errors.name}
-                  />
-                  {errors.name && (
-                    <p id="name-error" className="mt-1 text-xs text-red-400" role="alert">
-                      {errors.name}
-                    </p>
-                  )}
-                </div>
+                {[
+                  { id: "name", label: "이름", type: "text", placeholder: "홍길동", autoComplete: "name" },
+                  { id: "email", label: "이메일", type: "email", placeholder: "example@company.com", autoComplete: "email" },
+                  { id: "subject", label: "제목", type: "text", placeholder: "문의 제목을 입력해주세요", autoComplete: "off" },
+                ].map(({ id, label, type, placeholder, autoComplete }) => (
+                  <div key={id}>
+                    <label htmlFor={id} className="block text-sm font-medium text-slate-300 mb-1.5">
+                      {label} <span className="text-accent">*</span>
+                    </label>
+                    <input
+                      id={id}
+                      name={id}
+                      type={type}
+                      autoComplete={autoComplete}
+                      placeholder={placeholder}
+                      value={form[id as keyof FormState]}
+                      onChange={handleChange}
+                      className={errors[id as keyof FormState] ? inputError : inputNormal}
+                      aria-invalid={!!errors[id as keyof FormState]}
+                    />
+                    {errors[id as keyof FormState] && (
+                      <p className="mt-1 text-xs text-red-400" role="alert">
+                        {errors[id as keyof FormState]}
+                      </p>
+                    )}
+                  </div>
+                ))}
 
-                {/* Email */}
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-slate-300 mb-1.5"
-                  >
-                    이메일 <span className="text-accent">*</span>
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    placeholder="example@company.com"
-                    value={form.email}
-                    onChange={handleChange}
-                    className={errors.email ? inputError : inputNormal}
-                    aria-describedby={errors.email ? "email-error" : undefined}
-                    aria-invalid={!!errors.email}
-                  />
-                  {errors.email && (
-                    <p id="email-error" className="mt-1 text-xs text-red-400" role="alert">
-                      {errors.email}
-                    </p>
-                  )}
-                </div>
-
-                {/* Subject */}
-                <div>
-                  <label
-                    htmlFor="subject"
-                    className="block text-sm font-medium text-slate-300 mb-1.5"
-                  >
-                    제목 <span className="text-accent">*</span>
-                  </label>
-                  <input
-                    id="subject"
-                    name="subject"
-                    type="text"
-                    placeholder="문의 제목을 입력해주세요"
-                    value={form.subject}
-                    onChange={handleChange}
-                    className={errors.subject ? inputError : inputNormal}
-                    aria-describedby={errors.subject ? "subject-error" : undefined}
-                    aria-invalid={!!errors.subject}
-                  />
-                  {errors.subject && (
-                    <p id="subject-error" className="mt-1 text-xs text-red-400" role="alert">
-                      {errors.subject}
-                    </p>
-                  )}
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-slate-300 mb-1.5"
-                  >
+                  <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-1.5">
                     문의 내용 <span className="text-accent">*</span>
                   </label>
                   <textarea
@@ -279,11 +220,10 @@ export default function Contact() {
                     value={form.message}
                     onChange={handleChange}
                     className={`resize-none ${errors.message ? inputError : inputNormal}`}
-                    aria-describedby={errors.message ? "message-error" : undefined}
                     aria-invalid={!!errors.message}
                   />
                   {errors.message && (
-                    <p id="message-error" className="mt-1 text-xs text-red-400" role="alert">
+                    <p className="mt-1 text-xs text-red-400" role="alert">
                       {errors.message}
                     </p>
                   )}
