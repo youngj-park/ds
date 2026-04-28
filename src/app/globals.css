@@ -68,6 +68,58 @@
   }
 }
 
+/* ── DataGridHero ────────────────────────────────────────────── */
+.data-grid-hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.grid-container {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  --mouse-x: -999px;
+  --mouse-y: -999px;
+  --mouse-glow-opacity: 0;
+}
+
+.grid-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle 240px at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 70%
+  );
+  opacity: var(--mouse-glow-opacity);
+  z-index: 1;
+}
+
+.grid-cell {
+  border-radius: 2px;
+  opacity: var(--opacity-min, 0.05);
+}
+
+@keyframes cell-pulse {
+  from {
+    opacity: var(--opacity-min, 0.05);
+  }
+  to {
+    opacity: var(--opacity-max, 0.6);
+  }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  min-height: 100vh;
+}
+/* ───────────────────────────────────────────────────────────── */
+
 @layer utilities {
   .section-visible {
     opacity: 1 !important;

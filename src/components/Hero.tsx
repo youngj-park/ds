@@ -21,7 +21,6 @@ export default function Hero() {
         opacityMin={0.04}
         opacityMax={0.55}
         background="#1a2332"
-        className="min-h-screen"
       >
         {/* Vignette */}
         <div
