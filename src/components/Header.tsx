@@ -53,12 +53,13 @@ export default function Header() {
             aria-label={`${COMPANY_INFO.nameKo} 홈으로 이동`}
             onClick={handleLogoClick}
           >
-            <img
-              src="/logo.png"
-              alt="DEEPSEERS 로고"
-              className="h-8 w-auto object-contain"
-              style={{ filter: "brightness(0) invert(1)" }}
-            />
+            <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-accent text-white font-bold text-lg leading-none select-none">
+              DS
+            </div>
+            <span className="text-white font-semibold text-lg tracking-tight hidden sm:block">
+              디에스
+              <span className="text-accent">.</span>
+            </span>
           </a>
 
           {/* Desktop nav */}

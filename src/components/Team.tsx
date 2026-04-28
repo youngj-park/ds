@@ -43,7 +43,7 @@ export default function Team() {
       }}
     >
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-white/88" aria-hidden="true" />
+      <div className="absolute inset-0 bg-white/70" aria-hidden="true" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -74,7 +74,7 @@ export default function Team() {
               className="reveal section-hidden bg-white rounded-2xl p-8 border border-surface-border shadow-sm hover:shadow-lg transition-shadow duration-300 text-center"
             >
               <div className="flex justify-center mb-5">
-                <div className="w-24 h-24 rounded-full overflow-hidden shadow-lg border-2 border-accent/20">
+                <div className="w-40 h-40 rounded-full overflow-hidden shadow-lg border-2 border-accent/20">
                   <img
                     src={member.image}
                     alt={`${member.name} 프로필`}
